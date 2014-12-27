@@ -1,6 +1,7 @@
 {
     "server": {
-        "port": 8100
+        "port": 8100,
+        "mongodb": "mongodb://localhost:27017/snippet-share"
     },
     "snippet": {
         "life": 1209600,
