@@ -13,12 +13,15 @@ function returnStaticPage(res){
     res.end(html);
 };
 
-function _processData(data){
-};
-
 function processPost(req, res){
     var data = '', terminated = false;
+    var sha1sum = require('crypto').createHash('sha1');
+
+    var hashcash = require('url').parse(req.url).pathname;
+    if(null != hashcash) hashcash = hashcash.slice(1);
+
     req.on('data', function(d){
+        sha1sum.update(d);
         data += d;
         if(data.length > config.max){
             try{
@@ -34,7 +37,15 @@ function processPost(req, res){
     req.on('end', function(){
         if(terminated) return;
         terminated = true;
-        _processData(data);
+        require('./_processPost.js')(
+            {
+                config: config,
+                hashcash: hashcash,
+                sha1HEXDigest: sha1sum.digest('hex'),
+                data: data,
+            },
+            res
+        );
     });
 };
 
