@@ -8,7 +8,11 @@ function inCache(hashcashDigestHEX){
             return true;
     return false;
 };
-
+setInterval(function clearCache(){
+    var nowtime = new Date().getTime();
+    while(spentCache.length > 0 && spentCache[0].t < nowtime)
+        spentCache.shift();
+}, 10000);
 
 /*
  * Validate hashcash

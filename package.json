@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/neoatlantis/node-snippet-share/issues"
   },
-  "homepage": "https://github.com/neoatlantis/node-snippet-share"
+  "homepage": "https://github.com/neoatlantis/node-snippet-share",
+  "dependencies": {
+    "mongodb": "2.*"
+  }
 }

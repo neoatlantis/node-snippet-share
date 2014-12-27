@@ -1,6 +1,6 @@
 module.exports = function(config){
 //////////////////////////////////////////////////////////////////////////////
-function returnStaticPage(res){
+function _returnStaticPage(res){
     var html 
         = "<!DOCTYPE html><html>"
         + "<head><title>Snippet Server</title></head>"
@@ -11,6 +11,10 @@ function returnStaticPage(res){
         + "</html>"
     ;
     res.end(html);
+};
+
+function processGet(req, res){
+    _returnStaticPage(res);
 };
 
 function processPost(req, res){
@@ -51,8 +55,10 @@ function processPost(req, res){
 
 
 return function(req, res){
-    if(req.method != 'POST') return returnStaticPage(res);
-    processPost(req, res);
+    if(req.method == 'POST') return processPost(req, res);
+    if(req.method == 'GET') return processGet(req, res);
+    res.writeHead(405);
+    res.end();
 };
 //////////////////////////////////////////////////////////////////////////////
 };
