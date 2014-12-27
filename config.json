@@ -1,4 +1,7 @@
 {
+    "server": {
+        "port": 8100
+    },
     "snippet": {
         "life": 1209600,
         "max": 10240
