@@ -1,0 +1,20 @@
+{
+  "name": "node-snippet-share",
+  "version": "0.0.1",
+  "description": "node-snippet-share ==================",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neoatlantis/node-snippet-share.git"
+  },
+  "author": "NeoAtlantis",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/neoatlantis/node-snippet-share/issues"
+  },
+  "homepage": "https://github.com/neoatlantis/node-snippet-share"
+}

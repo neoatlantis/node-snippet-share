@@ -1,0 +1,10 @@
+{
+    "snippet": {
+        "life": 1209600,
+        "max": 10240
+    },
+    "hashcash": {
+        "track": 86400,
+        "bits": 20
+    }
+}
