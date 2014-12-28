@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/neoatlantis/node-snippet-share",
   "dependencies": {
-    "mongodb": "2.*"
+    "mongodb": "2.*",
+    "node-uuid": "1.4.*"
   }
 }

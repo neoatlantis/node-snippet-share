@@ -84,6 +84,3 @@ function validateHashcash(hashcash, conditions){
 };
 
 module.exports = validateHashcash;
-
-console.log(validateHashcash('1:23:141227153138:test::14hrjNtYaQjQaSm7:0000000HU/8', {resource: 'test', bits: 23}))
-console.log(validateHashcash('1:23:141227153138:test::14hrjNtYaQjQaSm7:0000000HU/8', {resource: 'test', bits: 23}))

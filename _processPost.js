@@ -1,6 +1,7 @@
 module.exports = function(params, response){
     var dataLength = params.data.length,
         dataSHA1HEX = params.sha1HEXDigest.toLowerCase();
+    var newUUID = require('node-uuid').v4();
 
     var requiredBits = 160;
     var bitsDef = params.config.hashcash.bits;
@@ -34,8 +35,9 @@ module.exports = function(params, response){
 
         var collection = db.collection('snippets');
         collection.insert({
+            id: newUUID, 
             validTo: new Date().getTime() + params.config.snippet.life * 1000,
-            base64: data.encode('base64'),
+            base64: params.data.toString('base64'),
         }, function(err, result){
             if(err){
                 response.writeHead(500);
@@ -43,23 +45,11 @@ module.exports = function(params, response){
                 return console.error('Error saving a snippet during saving.');
             };
 
-            try{
-                var last = db.inventory.find();
-                var id = last._id;
-            } catch(e){
-                response.writeHead(500);
-                console.error(e);
-                response.end();
-                db.close();
-                return;
-            };
-
-
             console.log("New " + String(result.result.n) + " snippet.");
             db.close();
 
             response.writeHead(200);
-            response.write(String(id));
+            response.write(String(newUUID));
             response.end();
         });
     });

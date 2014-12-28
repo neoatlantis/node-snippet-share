@@ -1,3 +1,5 @@
+var buffer = require('buffer');
+
 module.exports = function(config){
 //////////////////////////////////////////////////////////////////////////////
 function _returnStaticPage(res){
@@ -14,19 +16,28 @@ function _returnStaticPage(res){
 };
 
 function processGet(req, res){
+    var url = require('url').parse(req.url).pathname;
+    var r36 = url.slice(-36);
+    if(/^[0-9a-f]{8}\-([0-9a-f]{4}\-){3}[0-9a-f]{12}$/.test(r36))
+        return require('./_processGet.js')({
+            config: config,
+            uuid: r36,
+        }, res);
     _returnStaticPage(res);
 };
 
 function processPost(req, res){
-    var data = '', terminated = false;
+    var data = new buffer.Buffer(0), terminated = false;
     var sha1sum = require('crypto').createHash('sha1');
 
     var hashcash = require('url').parse(req.url).pathname;
     if(null != hashcash) hashcash = hashcash.slice(1);
 
+    console.log("New post: " + hashcash);
+
     req.on('data', function(d){
         sha1sum.update(d);
-        data += d;
+        data = buffer.Buffer.concat([data, d]);
         if(data.length > config.max){
             try{
                 res.writeHead(413);
